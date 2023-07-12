@@ -11,5 +11,8 @@ public interface HabitacionRepository {
 	public Habitacion seleccionar(Integer id);
 	public void eliminar(Integer id); 
 	
+	public List<Habitacion> seleccionarHabitacionOuterJoin();
+	
+	
 
 }

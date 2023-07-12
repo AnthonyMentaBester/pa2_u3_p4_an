@@ -11,6 +11,8 @@ public interface HabitacionService {
 	public Habitacion buscar(Integer id);
 	public void borrar(Integer id); 
 	
+	public List<Habitacion> buscarHabitacionOuterJoin();
+	
 
     
 }

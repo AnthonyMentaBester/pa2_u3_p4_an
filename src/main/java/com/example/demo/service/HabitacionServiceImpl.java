@@ -39,6 +39,12 @@ public class HabitacionServiceImpl implements HabitacionService{
         this.habitacionRepository.eliminar(id);
     }
     
+    @Override
+	public List<Habitacion> buscarHabitacionOuterJoin() {
+		// TODO Auto-generated method stub
+		return this.habitacionRepository.seleccionarHabitacionOuterJoin();
+	}
+    
 
     
 }

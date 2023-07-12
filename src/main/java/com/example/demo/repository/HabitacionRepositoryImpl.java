@@ -44,5 +44,13 @@ public class HabitacionRepositoryImpl implements HabitacionRepository {
         this.entitymanager.remove(habitacion);
     }
     
+    @Override
+	public List<Habitacion> seleccionarHabitacionOuterJoin() {
+		// TODO Auto-generated method stub
+		TypedQuery<Habitacion> myQuery = this.entitymanager.createQuery("SELECT h FROM Habitacion h LEFT JOIN h.hotel ha",Habitacion.class);
+		
+		return myQuery.getResultList();
+	}
+    
 
 }

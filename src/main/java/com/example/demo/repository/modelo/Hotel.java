@@ -16,10 +16,7 @@ import jakarta.persistence.Table;
 @Table(name = "hotel")
 public class Hotel {
 	
-	@Override
-	public String toString() {
-		return "Hotel [nombre=" + nombre + "]";
-	}
+	
 	@GeneratedValue(generator = "seq_hotel", strategy = GenerationType.SEQUENCE ) /// atributo quue permite hacer match
 	@SequenceGenerator(name = "seq_hotel", sequenceName = "seq_hotel", allocationSize = 1)
 	
@@ -60,6 +57,11 @@ public class Hotel {
 	}
 	public void setHabitaciones(List<Habitacion> habitaciones) {
 		this.habitaciones = habitaciones;
+	}
+	@Override
+	public String toString() {
+		return "Hotel [id=" + id + ", nombre=" + nombre + ", direccion=" + direccion 
+				+ "]";
 	}
 	
 	
