@@ -1,5 +1,7 @@
 package com.example.demo;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +33,31 @@ public class Pa2U3P4AnApplication implements CommandLineRunner{
 		List<Hotel> hot = this.hotelService.buscarInnerJoin();
 		for (Hotel hotel : hot) {
 			System.out.println(hotel);
+			for (Habitacion habi : hotel.getHabitaciones()) {
+				System.out.println(habi.getNumero());
+			}
 		}
 		
+		System.out.println("JOIN FETCH ");
+		List<Hotel> hot1 = this.hotelService.buscarFetchJoin();
+		for (Hotel hotel : hot1) {
+			System.out.println(hotel);
+			for (Habitacion habi : hotel.getHabitaciones()) {
+				System.out.println(habi.getNumero());
+			}
+		}
+		List<Habitacion> habis = new ArrayList<>();
+		Habitacion  habi = new Habitacion();
+		habi.setNumero("23");
+		habi.setValor(new BigDecimal(123));
+		habis.add(habi);
+		
+		Hotel hot3 = new Hotel();
+		hot3.setDireccion("av las lomas");
+		hot3.setNombre("Marriot");
+		hot3.setHabitaciones(habis);
+		this.hotelService.agregar(hot3);
+		/*
 		List<Hotel> hot1 = this.hotelService.buscarOuterRightJoin();
 		for (Hotel hotel : hot1) {
 			System.out.println(hotel);
@@ -56,7 +81,7 @@ public class Pa2U3P4AnApplication implements CommandLineRunner{
 		List<Hotel> hot5 = this.hotelService.buscarWhereJoin();
 		for (Hotel hotel : hot5) {
 			System.out.println(hotel);
-		}
+		}*/
 	}
 
 }

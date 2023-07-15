@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.example.demo.repository.modelo.Habitacion;
@@ -10,6 +11,7 @@ public interface HotelService {
 	public void actualizar(Hotel hotel);
 	public Hotel buscar(Integer id);
 	public void borrar(Integer id); 
+	public void calcularIva(Hotel hotel);
 	
 	//inner
 	public List<Hotel> buscarInnerJoin();
@@ -24,4 +26,7 @@ public interface HotelService {
 	
 	//WHERE
 	public List<Hotel> buscarWhereJoin();
+	
+	//FETCH
+		public List<Hotel> buscarFetchJoin();
 }
