@@ -1,9 +1,8 @@
 package com.example.demo.repository.modelo;
 
-
-
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -27,8 +26,11 @@ public class Semestre {
 	private String tipo;
 	@Column(name = "sem_numero")
 	private String numero;
-	@OneToMany(mappedBy = "semestre")
-	private List<Semestre> semestres;
+	
+	@OneToMany(mappedBy = "semestre", cascade = CascadeType.ALL)
+	private List<Materia> materias;
+	
+	
 	public Integer getId() {
 		return id;
 	}
@@ -53,12 +55,13 @@ public class Semestre {
 	public void setNumero(String numero) {
 		this.numero = numero;
 	}
-	public List<Semestre> getSemestres() {
-		return semestres;
+	public List<Materia> getMaterias() {
+		return materias;
 	}
-	public void setSemestres(List<Semestre> semestres) {
-		this.semestres = semestres;
+	public void setMaterias(List<Materia> materias) {
+		this.materias = materias;
 	}
+	
 	
 	
 

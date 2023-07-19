@@ -26,8 +26,10 @@ public class Provincia {
 	private String capital;
 	@Column(name = "prov_region")
 	private String region;
-	@OneToMany(mappedBy = "provincia")
+	
+	@OneToMany(mappedBy = "provincia", cascade = CascadeType.ALL)
 	private List<Estudiante> estudiantes;
+	
 	public Integer getId() {
 		return id;
 	}

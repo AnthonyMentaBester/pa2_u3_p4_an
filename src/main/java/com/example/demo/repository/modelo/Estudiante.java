@@ -2,6 +2,7 @@ package com.example.demo.repository.modelo;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -31,7 +32,7 @@ public class Estudiante {
 	@Column(name = "estu_cedula")
 	private String cedula;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "estu_id_provincia")
 	private Provincia provincia;
 	

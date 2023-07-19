@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.repository.EstudianteRepository;
 import com.example.demo.repository.modelo.Estudiante;
-import com.example.demo.repository.modelo.Provincia;
+
 
 @Service
 public class EstudianteServiceImpl implements EstudianteService{
@@ -23,8 +23,7 @@ public class EstudianteServiceImpl implements EstudianteService{
 	@Override
 	public Estudiante buscar(String cedula) {
 		// TODO Auto-generated method stub
-		Estudiante estu = this.estudianteRepository.seleccionar(cedula);
-		String actualCedula = estu.getCedula();
+		
 		
 		return this.estudianteRepository.seleccionar(cedula);
 	}

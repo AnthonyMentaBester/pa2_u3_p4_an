@@ -2,6 +2,7 @@ package com.example.demo.repository.modelo;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -28,11 +29,12 @@ public class Materia {
 	private String horas;
 	@Column(name = "mate_codigo")
 	private String codigo;
-	@ManyToOne(fetch = FetchType.LAZY)
+	
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "mate_id_semestre")
 	private Semestre semestre;
 	
-	@OneToMany(mappedBy = "materia")
+	@OneToMany(mappedBy = "materia", cascade = CascadeType.ALL)
 	private List<Matricula> matriculas;
 
 	public Integer getId() {

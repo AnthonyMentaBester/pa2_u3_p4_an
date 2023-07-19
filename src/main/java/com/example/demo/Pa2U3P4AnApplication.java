@@ -9,19 +9,30 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.example.demo.repository.modelo.Estudiante;
 import com.example.demo.repository.modelo.Habitacion;
 import com.example.demo.repository.modelo.Hotel;
+import com.example.demo.repository.modelo.Materia;
+import com.example.demo.repository.modelo.Matricula;
+import com.example.demo.repository.modelo.Provincia;
+import com.example.demo.repository.modelo.Semestre;
+import com.example.demo.service.EstudianteService;
 import com.example.demo.service.HabitacionService;
 import com.example.demo.service.HotelService;
+import com.example.demo.service.MateriaService;
+import com.example.demo.service.MatriculaService;
 
 @SpringBootApplication
 public class Pa2U3P4AnApplication implements CommandLineRunner{
 
 	@Autowired
-	private HotelService hotelService;
+	private EstudianteService estudianteService;
 	
 	@Autowired
-	private HabitacionService habitacionService;
+	private MateriaService materiaService;
+
+	@Autowired
+	private MatriculaService matriculaService;
 	public static void main(String[] args) {
 		SpringApplication.run(Pa2U3P4AnApplication.class, args);
 	}
@@ -29,59 +40,32 @@ public class Pa2U3P4AnApplication implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
-		
-		List<Hotel> hot = this.hotelService.buscarInnerJoin();
-		for (Hotel hotel : hot) {
-			System.out.println(hotel);
-			for (Habitacion habi : hotel.getHabitaciones()) {
-				System.out.println(habi.getNumero());
-			}
-		}
-		
-		System.out.println("JOIN FETCH ");
-		List<Hotel> hot1 = this.hotelService.buscarFetchJoin();
-		for (Hotel hotel : hot1) {
-			System.out.println(hotel);
-			for (Habitacion habi : hotel.getHabitaciones()) {
-				System.out.println(habi.getNumero());
-			}
-		}
-		List<Habitacion> habis = new ArrayList<>();
-		Habitacion  habi = new Habitacion();
-		habi.setNumero("23");
-		habi.setValor(new BigDecimal(123));
-		habis.add(habi);
-		
-		Hotel hot3 = new Hotel();
-		hot3.setDireccion("av las lomas");
-		hot3.setNombre("Marriot");
-		hot3.setHabitaciones(habis);
-		this.hotelService.agregar(hot3);
-		/*
-		List<Hotel> hot1 = this.hotelService.buscarOuterRightJoin();
-		for (Hotel hotel : hot1) {
-			System.out.println(hotel);
-		}
-		
-		List<Hotel> hot2 = this.hotelService.buscarLeftRightJoin();
-		for (Hotel hotel : hot2) {
-			System.out.println(hotel);
-		}
-		
-		List<Habitacion> hot3 = this.habitacionService.buscarHabitacionOuterJoin();
-		for (Habitacion habi : hot3) {
-			System.out.println(habi);
-		}
-		
-		List<Hotel> hot4 = this.hotelService.buscarOuterFullJoin();
-		for (Hotel hotel : hot4) {
-			System.out.println(hotel);
-		}
-		
-		List<Hotel> hot5 = this.hotelService.buscarWhereJoin();
-		for (Hotel hotel : hot5) {
-			System.out.println(hotel);
-		}*/
+		Provincia prov = new Provincia();
+		prov.setCapital("Pichincha");
+		prov.setCiudad("Quito");
+		prov.setRegion("Sierra");
+			
+	List<Estudiante> estudiantes = new ArrayList<>();
+	Estudiante e = new Estudiante();
+	e.setApellido("NARVAEZ");
+	e.setCedula("1719954370");
+	e.setFacultad("Ciencias aplicadas");
+	e.setProvincia(prov);
+	e.setNombre("Anthony");
+	
+	estudiantes.add(e);
+	this.estudianteService.agregar(e);
+	
+	
+	
+	List<String> codigos = new ArrayList<>();
+	codigos.add("1");
+	codigos.add("2");
+	
+	this.matriculaService.crearMatricula("1719954370", codigos);
+	
 	}
+
+	
 
 }

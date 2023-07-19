@@ -19,9 +19,9 @@ public class MateriaServiceImpl implements MateriaService{
 	}
 
 	@Override
-	public Materia buscar(Integer id) {
+	public Materia buscar(String codigo) {
 		// TODO Auto-generated method stub
-		return this.materiaRepository.seleccionar(id);
+		return (Materia) this.materiaRepository.seleccionar(codigo);
 	}
 
 }
