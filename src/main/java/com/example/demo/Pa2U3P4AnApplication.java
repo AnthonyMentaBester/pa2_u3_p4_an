@@ -1,24 +1,16 @@
 package com.example.demo;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 
-import com.example.demo.repository.modelo.Estudiante;
-import com.example.demo.repository.modelo.Habitacion;
-import com.example.demo.repository.modelo.Hotel;
-import com.example.demo.repository.modelo.Materia;
-import com.example.demo.repository.modelo.Matricula;
-import com.example.demo.repository.modelo.Provincia;
-import com.example.demo.repository.modelo.Semestre;
+import com.example.demo.repository.modelo.Propietario;
 import com.example.demo.service.EstudianteService;
-import com.example.demo.service.HabitacionService;
-import com.example.demo.service.HotelService;
+import com.example.demo.service.ICuentaBancariaService;
+import com.example.demo.service.IPropietarioService;
+import com.example.demo.service.ITransferenciaService;
 import com.example.demo.service.MateriaService;
 import com.example.demo.service.MatriculaService;
 
@@ -33,37 +25,28 @@ public class Pa2U3P4AnApplication implements CommandLineRunner{
 
 	@Autowired
 	private MatriculaService matriculaService;
+	
+	@Autowired
+	private ITransferenciaService transferenciaService;
+
+	@Autowired
+	private ICuentaBancariaService bancariaService;
+	
+	@Autowired
+	private IPropietarioService iPropietarioService;
 	public static void main(String[] args) {
 		SpringApplication.run(Pa2U3P4AnApplication.class, args);
 	}
 
 	@Override
 	public void run(String... args) throws Exception {
-		// TODO Auto-generated method stub
-		Provincia prov = new Provincia();
-		prov.setCapital("Pichincha");
-		prov.setCiudad("Quito");
-		prov.setRegion("Sierra");
-			
-	List<Estudiante> estudiantes = new ArrayList<>();
-	Estudiante e = new Estudiante();
-	e.setApellido("NARVAEZ");
-	e.setCedula("1719954370");
-	e.setFacultad("Ciencias aplicadas");
-	e.setProvincia(prov);
-	e.setNombre("Anthony");
+	System.out.println("Main: " + TransactionSynchronizationManager.isActualTransactionActive()); 
+	Propietario prop = new Propietario();
+	prop.setNombre("Juan");
+	prop.setApellido("narvaez");
+	prop.setCedula("17223214234");
 	
-	estudiantes.add(e);
-	this.estudianteService.agregar(e);
-	
-	
-	
-	List<String> codigos = new ArrayList<>();
-	codigos.add("1");
-	codigos.add("2");
-	
-	this.matriculaService.crearMatricula("1719954370", codigos);
-	
+	this.iPropietarioService.agregar(prop);
 	}
 
 	
