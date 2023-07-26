@@ -2,8 +2,9 @@ package com.example.demo.service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
+
+import javax.management.RuntimeErrorException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,9 @@ import org.springframework.stereotype.Service;
 import com.example.demo.repository.ITransferenciaRepository;
 import com.example.demo.repository.modelo.CuentaBancaria;
 import com.example.demo.repository.modelo.Transferencia;
+
+import jakarta.transaction.Transactional;
+import jakarta.transaction.Transactional.TxType;
 
 @Service
 public class TransferenciaServiceImpl implements ITransferenciaService {
@@ -28,6 +32,7 @@ public class TransferenciaServiceImpl implements ITransferenciaService {
 	}
 
 	@Override
+	
 	public void actualizar(Transferencia transferencia) {
 		// TODO Auto-generated method stub
 		this.transferenciaRepository.actualizar(transferencia);
@@ -52,35 +57,39 @@ public class TransferenciaServiceImpl implements ITransferenciaService {
 	}
 
 	@Override
+	@Transactional(value = TxType.REQUIRES_NEW)
 	public void realizarTransferencia(String cuentaOrigen, String cuentaDestino, BigDecimal monto) {
 		// TODO Auto-generated method stub
 		CuentaBancaria cOrigen = this.bancariaService.buscarPorNumero(cuentaOrigen);
 		CuentaBancaria cDestino = this.bancariaService.buscarPorNumero(cuentaDestino);
 		BigDecimal saldo = cOrigen.getSaldo();
-		if (monto.compareTo(saldo) == 1) {
-			System.out
-					.println("Lo sentimos es imposible realizar la transferencia pues su saldo es insuficiente... :c");
-		} else {
+		if (monto.compareTo(saldo) <= 0) {
+			//Aumento a cuenta destino
+			BigDecimal saldoActual = cDestino.getSaldo();
+			cDestino.setSaldo(saldoActual.add(monto));
+			this.bancariaService.actualizar(cDestino);
+			
+			
+			//restar saldo
+			BigDecimal saldoActualO = cOrigen.getSaldo();
+			cOrigen.setSaldo(saldoActualO.subtract(monto));
+			this.bancariaService.actualizar(cOrigen);
 			
 			Transferencia transferencia = new Transferencia();
 			transferencia.setCuentaOrigen(cOrigen);
 			transferencia.setCuentaDestino(cDestino);
 			transferencia.setFecha(LocalDate.now());
 			transferencia.setMonto(monto);
-			List<Transferencia>transferenciaL = new ArrayList<>();
-			transferenciaL.add(transferencia);
 			
-			//Aumento a cuenta destino
-			BigDecimal saldoActual = cDestino.getSaldo();
-			cDestino.setSaldo(saldoActual.add(monto));
-			this.bancariaService.actualizar(cDestino);
-			System.out.println("Transferencia exitosa :).");
+			this.transferenciaRepository.insertar(transferencia);
 			
-			//restar saldo
-			BigDecimal saldoActualO = cOrigen.getSaldo();
-			cOrigen.setSaldo(saldoActualO.subtract(monto));
-			cOrigen.setTransferencias(transferenciaL);
-			this.bancariaService.actualizar(cOrigen);
+			
+		} else {
+ 
+			throw new RuntimeException("Lo sentimos su saldo es insuficiente... :c");
+
+			
+			
 		}
 	}
 

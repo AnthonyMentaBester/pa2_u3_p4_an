@@ -13,7 +13,7 @@ public class PruebaServiceImpl implements PruebaService {
 	@Transactional(value = TxType.NEVER)
 	public void prueba() {
 		// TODO Auto-generated method stub
-		System.out.println(TransactionSynchronizationManager.isActualTransactionActive());
+		System.out.println("NEVER: " + TransactionSynchronizationManager.isActualTransactionActive());
 
 		System.out.println("metodo de prueba");
 	}
@@ -22,7 +22,7 @@ public class PruebaServiceImpl implements PruebaService {
 	@Transactional(value = TxType.MANDATORY)
 	public void prueba2() {
 		// TODO Auto-generated method stub
-		System.out.println(TransactionSynchronizationManager.isActualTransactionActive());
+		System.out.println("MANDATORY: " + TransactionSynchronizationManager.isActualTransactionActive());
 
 		System.out.println("metodo de prueba2");
 
@@ -32,7 +32,7 @@ public class PruebaServiceImpl implements PruebaService {
 	@Transactional(value = TxType.SUPPORTS)
 	public void pruebaSupports() {
 		// TODO Auto-generated method stub
-		System.out.println(TransactionSynchronizationManager.isActualTransactionActive());
+		System.out.println("SUPPORTS: " + TransactionSynchronizationManager.isActualTransactionActive());
 
 		System.out.println("metodo de prueba supports");
 	}
@@ -41,7 +41,7 @@ public class PruebaServiceImpl implements PruebaService {
 	@Transactional(value = TxType.NOT_SUPPORTED)
 	public void pruebaNoSupports() {
 		// TODO Auto-generated method stub
-		System.out.println(TransactionSynchronizationManager.isActualTransactionActive());
+		System.out.println("NOT SUPPORTEDS: " + TransactionSynchronizationManager.isActualTransactionActive());
 
 		System.out.println("metodo de prueba NO supports");
 		
@@ -51,7 +51,7 @@ public class PruebaServiceImpl implements PruebaService {
 	@Transactional(value = TxType.REQUIRED)
 	public void required() {
 		// TODO Auto-generated method stub
-		System.out.println(TransactionSynchronizationManager.isActualTransactionActive());
+		System.out.println("REQUIRED: " + TransactionSynchronizationManager.isActualTransactionActive());
 
 		System.out.println("metodo de prueba Required");
 		
@@ -61,7 +61,7 @@ public class PruebaServiceImpl implements PruebaService {
 	@Transactional(value = TxType.REQUIRES_NEW)
 	public void requiredNew() {
 		// TODO Auto-generated method stub
-		System.out.println(TransactionSynchronizationManager.isActualTransactionActive());
+		System.out.println("REQUIRED_NEW: " + TransactionSynchronizationManager.isActualTransactionActive());
 
 		System.out.println("metodo de prueba Required NEW ");
 		
