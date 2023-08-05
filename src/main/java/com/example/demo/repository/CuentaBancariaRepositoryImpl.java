@@ -1,5 +1,9 @@
 package com.example.demo.repository;
 
+import java.util.concurrent.TimeUnit;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.example.demo.repository.modelo.CuentaBancaria;
@@ -13,11 +17,17 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class CuentaBancariaRepositoryImpl implements ICuentaBancariaRepository {
 
+	private static final Logger LOG = LoggerFactory.getLogger(CuentaBancariaRepositoryImpl.class);
+
 	@PersistenceContext
 	private EntityManager entityManager;
 
 	@Override
 	public void insertar(CuentaBancaria bancaria) {
+		LOG.info("HILO: " + Thread.currentThread().getName());
+		//logica que demora 1 segundo asumiendo hace operaciones
+		
+		
 		// TODO Auto-generated method stub
 		this.entityManager.persist(bancaria);
 	}

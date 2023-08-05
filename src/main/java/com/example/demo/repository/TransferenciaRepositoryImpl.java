@@ -4,8 +4,11 @@ import java.util.List;
 
 import javax.management.RuntimeErrorException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import com.example.demo.funcional.MetodosReferenciados;
 import com.example.demo.repository.modelo.Transferencia;
 
 import jakarta.persistence.EntityManager;
@@ -18,12 +21,15 @@ import jakarta.transaction.Transactional.TxType;
 @Transactional
 public class TransferenciaRepositoryImpl implements ITransferenciaRepository {
 
+	private static final Logger LOG = LoggerFactory.getLogger(MetodosReferenciados .class);
+
 	@PersistenceContext
 	private EntityManager entityManager;
 
 	@Override
 	@Transactional(value = TxType.MANDATORY)
 	public void insertar(Transferencia transferencia) {
+		
 		// TODO Auto-generated method stub
 		this.entityManager.persist(transferencia);
 		//throw new RuntimeException();

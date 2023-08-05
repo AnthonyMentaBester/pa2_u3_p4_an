@@ -6,9 +6,12 @@ import java.util.List;
 
 import javax.management.RuntimeErrorException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.funcional.MetodosReferenciados;
 import com.example.demo.repository.ITransferenciaRepository;
 import com.example.demo.repository.modelo.CuentaBancaria;
 import com.example.demo.repository.modelo.Transferencia;
@@ -19,6 +22,8 @@ import jakarta.transaction.Transactional.TxType;
 @Service
 public class TransferenciaServiceImpl implements ITransferenciaService {
 
+	private static final Logger LOG = LoggerFactory.getLogger(MetodosReferenciados .class);
+
 	@Autowired
 	private ITransferenciaRepository transferenciaRepository;
 
@@ -28,6 +33,7 @@ public class TransferenciaServiceImpl implements ITransferenciaService {
 	@Override
 	public void agregar(Transferencia transferencia) {
 		// TODO Auto-generated method stub
+	
 		this.transferenciaRepository.insertar(transferencia);
 	}
 

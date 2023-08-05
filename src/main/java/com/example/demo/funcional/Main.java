@@ -173,11 +173,8 @@ public class Main {
 		Stream<Integer> listaCambiada2 = listaNum3.stream().map(numero -> {
 
 			Integer num = 10;
-
 			num = numero + num;
-
 			return num;
-
 		});
 
 		listaCambiada2.forEach(cadena -> LOG.info(cadena.toString()));
