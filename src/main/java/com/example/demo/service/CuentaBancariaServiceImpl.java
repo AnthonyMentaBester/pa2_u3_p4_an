@@ -1,13 +1,14 @@
 package com.example.demo.service;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.funcional.MetodosReferenciados;
 import com.example.demo.repository.ICuentaBancariaRepository;
 import com.example.demo.repository.modelo.CuentaBancaria;
 
@@ -68,6 +69,43 @@ public class CuentaBancariaServiceImpl implements ICuentaBancariaService {
 		}
 		this.bancariaRepository.insertar(bancaria);
 		return bancaria.getNumero();
+	}
+
+	@Override
+	@Async
+	public void agrearAsincrono(CuentaBancaria bancaria) {
+		LOG.info("HILO: " + Thread.currentThread().getName());
+
+		try {
+			TimeUnit.SECONDS.sleep(1);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		// TODO Auto-generated method stub
+		this.bancariaRepository.insertar(bancaria);
+	
+		
+	}
+
+	@Override
+	//debe tener la anotacion 
+	@Async
+	//no podemos retornar directam,ente el string nos 
+	//apoyamos de una clase COMPLETABLE FUTURE
+	public CompletableFuture<String> agrearAsincrono2(CuentaBancaria bancaria) {
+		LOG.info("HILO: " + Thread.currentThread().getName());
+
+		// TODO Auto-generated method stub
+		try {
+			TimeUnit.SECONDS.sleep(1);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		this.bancariaRepository.insertar(bancaria);
+		//debo apoyarme tambien en retorno
+		return CompletableFuture.completedFuture(bancaria.getNumero());
 	}
 
 }
